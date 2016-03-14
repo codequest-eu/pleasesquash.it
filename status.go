@@ -21,6 +21,6 @@ func buildStatusImpl(state, description string) *github.RepoStatus {
 	return &github.RepoStatus{
 		State:       github.String(state),
 		Description: github.String(description),
-		Context:     github.String("pleasesquash.it"),
+		Context:     github.String("pleasesquash.me"),
 	}
 }

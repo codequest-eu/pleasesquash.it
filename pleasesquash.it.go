@@ -11,6 +11,7 @@ import (
 
 var (
 	binding = flag.String("binding", ":443", "interface and port to bind to")
+	devMode = flag.Bool("dev_mode", false, "Are you in Developmet mode?")
 )
 
 type fallibleHandler func(w http.ResponseWriter, r *http.Request) error
@@ -22,6 +23,26 @@ func catchError(fn fallibleHandler) http.HandlerFunc {
 			http.Error(w, "You broke the internet 🐮💩😱", http.StatusInternalServerError)
 		}
 	}
+}
+
+func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
+	r.URL.Scheme = "https"
+	http.Redirect(w, r, r.URL.String(), http.StatusMovedPermanently)
+}
+
+func startServer(router *mux.Router) error {
+	if *devMode {
+		return http.ListenAndServe(*binding, router)
+	}
+	httpMux := http.NewServeMux()
+	httpMux.HandleFunc("/", redirectToHTTPS)
+	go http.ListenAndServe(":80", httpMux)
+	return http.ListenAndServeTLS(
+		*binding,
+		os.Getenv("SSH_CERT"),
+		os.Getenv("SSH_KEY"),
+		router,
+	)
 }
 
 func main() {
@@ -51,12 +72,5 @@ func main() {
 	router.HandleFunc("/webhook", catchError(h.webhook)).Methods("POST")
 	glog.Infof("Listening on %s", *binding)
 	// TODO: implement TLS as an option.
-	glog.Fatal(
-		http.ListenAndServeTLS(
-			*binding,
-			os.Getenv("SSH_CERT"),
-			os.Getenv("SSH_KEY"),
-			router,
-		),
-	)
+	glog.Fatal(startServer(router))
 }
