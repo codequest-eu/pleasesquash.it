@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"net/http"
+	"os"
 
 	"github.com/golang/glog"
 	"github.com/gorilla/mux"
@@ -25,7 +26,24 @@ func catchError(fn fallibleHandler) http.HandlerFunc {
 
 func main() {
 	flag.Parse()
-	h := &handler{} // TODO
+	stateStore := newSecureCookieStore(
+		[]byte(os.Getenv("COOKIE_HASH_KEY")),
+		[]byte(os.Getenv("COOKIE_BLOCK_KEY")),
+	)
+	credStore, err := newBoltCredentialsStore(os.Getenv("CRED_STORE"))
+	if err != nil {
+		glog.Fatal(err)
+	}
+	oauthManager := newOauthFactory(
+		os.Getenv("GITHUB_CLIENT_KEY"),
+		os.Getenv("GITHUB_CLIENT_SECRET"),
+	)
+
+	h := &handler{
+		state: stateStore,
+		creds: credStore,
+		oauth: oauthManager,
+	}
 	router := mux.NewRouter()
 	router.HandleFunc("/", catchError(serveIndex)).Methods("GET")
 	router.HandleFunc("/submit", catchError(h.submit)).Methods("POST")

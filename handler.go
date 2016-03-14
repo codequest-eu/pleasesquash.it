@@ -24,19 +24,19 @@ func (h *handler) submit(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 	state := uuid.NewV4().String()
-	if err := h.state.Set(w, state); err != nil {
+	if err := h.state.SetState(w, state); err != nil {
 		return err
 	}
-	url, err := h.oauth.GetURL(state, repoName)
-	if err != nil {
+	if err := h.state.SetRepo(w, repoName); err != nil {
 		return err
 	}
-	http.Redirect(w, r, url, http.StatusFound)
+	glog.Infof("Hook requestd for %q", repoName)
+	http.Redirect(w, r, h.oauth.GetURL(state, repoName), http.StatusFound)
 	return nil
 }
 
 func (h *handler) callback(w http.ResponseWriter, r *http.Request) (err error) {
-	state, err := h.state.Get(r)
+	state, err := h.state.GetState(r)
 	if err != nil {
 		return
 	}
@@ -44,27 +44,26 @@ func (h *handler) callback(w http.ResponseWriter, r *http.Request) (err error) {
 		err = errStateMismatch
 		return
 	}
+	repoName, err := h.state.GetRepo(r)
+	if err != nil {
+		return
+	}
 	token, err := h.oauth.Exchange(r.FormValue("code"))
 	if err != nil {
 		return
 	}
-	repoName := r.FormValue("repo_name")
-	glog.Infof("Adding hook for %q", repoName)
 	owner, repo, err := getOwnerAndRepo(repoName)
 	if err != nil {
 		return
 	}
-	client, err := h.oauth.Client(token)
-	if err != nil {
-		return
-	}
-	if _, _, err = client.Repositories.ListStatuses(owner, repo, "master", nil); err != nil {
+	if _, _, err = h.oauth.Client(token).Repositories.ListStatuses(owner, repo, "master", nil); err != nil {
 		err = renderError(w, owner, repo)
 		return
 	}
 	if err = h.creds.Set(repoName, token); err != nil {
 		return
 	}
+	glog.Infof("Added hook for %q", repoName)
 	err = renderSuccess(w, owner, repo)
 	return
 }
@@ -84,18 +83,14 @@ func (h *handler) webhook(w http.ResponseWriter, r *http.Request) (err error) {
 	if err != nil {
 		return
 	}
-	client, err := h.oauth.Client(token)
-	if err != nil {
-		return
-	}
 	owner, repo, err := getOwnerAndRepo(*evt.Repo.FullName)
 	if err != nil {
 		return
 	}
-	_, _, err = client.Repositories.CreateStatus(
+	_, _, err = h.oauth.Client(token).Repositories.CreateStatus(
 		owner,
 		repo,
-		*evt.PullRequest.Head.Ref,
+		*evt.PullRequest.Head.SHA,
 		buildStatus(*evt.PullRequest.Commits == 1), // money shot!
 	)
 	return

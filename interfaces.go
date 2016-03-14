@@ -11,12 +11,19 @@ import (
 // StateStore is a mechanism allowing temporary storage of OAuth2 state to
 // prevent from CSRF attacks.
 type StateStore interface {
-	// Get allows getting state from an HTTP request.
-	Get(r *http.Request) (string, error)
+	// GetState allows getting state from an HTTP request.
+	GetState(r *http.Request) (string, error)
 
-	// Set allows setting state on an HTTP response. Must be called
+	// SetState allows setting state on an HTTP response. Must be called
 	// before the first byte of the response body is written.
-	Set(w http.ResponseWriter, state string) error
+	SetState(w http.ResponseWriter, state string) error
+
+	// GetRepo allows getting repo name from an HTTP request.
+	GetRepo(r *http.Request) (string, error)
+
+	// SetRepo allows setting state on an HTTP response. Must be called
+	// before the first byte of the response body is written.
+	SetRepo(w http.ResponseWriter, repo string) error
 } // type StateStore interface
 
 // CredentialsStore is a pluggable credentials backend for the application.
@@ -29,7 +36,7 @@ type CredentialsStore interface {
 } // type StateStore interface
 
 type OAuthFactory interface {
-	Client(token *oauth2.Token) (*github.Client, error)
+	Client(token *oauth2.Token) *github.Client
 	Exchange(code string) (*oauth2.Token, error)
-	GetURL(state, repoName string) (string, error)
+	GetURL(state, repoName string) string
 }
