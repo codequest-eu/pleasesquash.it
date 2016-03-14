@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	binding = flag.String("binding", ":1983", "interface and port to bind to")
+	binding = flag.String("binding", ":443", "interface and port to bind to")
 )
 
 type fallibleHandler func(w http.ResponseWriter, r *http.Request) error
@@ -51,5 +51,12 @@ func main() {
 	router.HandleFunc("/webhook", catchError(h.webhook)).Methods("POST")
 	glog.Infof("Listening on %s", *binding)
 	// TODO: implement TLS as an option.
-	glog.Fatal(http.ListenAndServe(*binding, router))
+	glog.Fatal(
+		http.ListenAndServeTLS(
+			*binding,
+			os.Getenv("SSH_CERT"),
+			os.Getenv("SSH_KEY"),
+			router,
+		),
+	)
 }
