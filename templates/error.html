@@ -1,3 +1,11 @@
 {{ define "content" }}
-<h1>Shit happnens!</h1>
+<h2 class="red">Sorry!</h2>
+<p>
+  Obviously, something went wrong. Most likely you do not have access to the
+  repo you were trying to set up. Alternatively, there may be no <em>master</em>
+  branch on the repo. We need the master branch to be present to verify that we
+  can access the repo by trying to access it's statuses. If no such branch
+  exists we can't tell the difference between that corner case and missing repo
+  access.
+</p>
 {{ end }}
