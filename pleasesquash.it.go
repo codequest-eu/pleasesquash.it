@@ -25,18 +25,21 @@ func catchError(fn fallibleHandler) http.HandlerFunc {
 	}
 }
 
-func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
-	r.URL.Scheme = "https"
-	http.Redirect(w, r, r.URL.String(), http.StatusMovedPermanently)
-}
-
 func startServer(router *mux.Router) error {
 	if *devMode {
 		return http.ListenAndServe(*binding, router)
 	}
-	httpMux := http.NewServeMux()
-	httpMux.HandleFunc("/", redirectToHTTPS)
-	go http.ListenAndServe(":80", httpMux)
+	go func() {
+		glog.Fatal(
+			http.ListenAndServe(
+				":80",
+				http.RedirectHandler(
+					"https://pleasesquash.me",
+					http.StatusMovedPermanently,
+				),
+			),
+		)
+	}()
 	return http.ListenAndServeTLS(
 		*binding,
 		os.Getenv("SSH_CERT"),
