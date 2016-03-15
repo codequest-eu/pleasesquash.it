@@ -73,6 +73,7 @@ func main() {
 	router.HandleFunc("/submit", catchError(h.submit)).Methods("POST")
 	router.HandleFunc("/callback", catchError(h.callback)).Methods("GET")
 	router.HandleFunc("/webhook", catchError(h.webhook)).Methods("POST")
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static"))).Methods("GET")
 	glog.Infof("Listening on %s", *binding)
 	// TODO: implement TLS as an option.
 	glog.Fatal(startServer(router))

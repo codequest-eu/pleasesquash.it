@@ -1,6 +1,19 @@
 {{ define "content" }}
+<p>
+  This is a simple tool to allow having GitHub pull requests marked as success
+  or failure based on whether commits have been squashed or not. The idea is to
+  only merge fully squashed PRs to keep the project log nice and clean.
+</p>
+<p>
+  In order to achieve that you need to provide your full GitHub repo name - eg.
+  <em>codequest-eu/pleasesquash.me</em> and grant the tool access to your GitHub
+  statuses. This <em>will not</em> grant access to your source code. You will be
+  guided through the rest of the setup (which involves one extra step) after
+  submitting the form below.
+</p>
+<p>Want to give it a try?</p>
 <form action="/submit" method="POST">
-  <input type="string" name="repo_name" placeholder="owner/name" />
-  <input type="submit" value="Start tracking" />
+  <input type="text" name="repo_name" placeholder="codequest-eu/pleasesquash.me" />
+  <button>Go!</button>
 </form>
 {{ end }}
