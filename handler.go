@@ -8,12 +8,15 @@ import (
 	"github.com/golang/glog"
 	"github.com/google/go-github/github"
 	"github.com/satori/go.uuid"
+
+	"github.com/codequest-eu/pleasesquash.me/credentials"
+	"github.com/codequest-eu/pleasesquash.me/state"
 )
 
 type handler struct {
-	state StateStore
-	creds CredentialsStore
-	oauth OAuthFactory
+	state state.Store
+	creds credentials.Store
+	oauth ClientFactory
 }
 
 var errStateMismatch = errors.New("OAuth2 state comparison mismatch")

@@ -1,4 +1,4 @@
-package main
+package state
 
 import (
 	"net/http"
@@ -11,31 +11,31 @@ const (
 	stateCookieKey = "oauth-state"
 )
 
-type cookieStateStore struct {
+type secureCookieStore struct {
 	cutter *securecookie.SecureCookie
 }
 
-func newSecureCookieStore(hashKey, blockKey []byte) StateStore {
-	return &cookieStateStore{securecookie.New(hashKey, blockKey)}
+func NewSecureCookieStore(hashKey, blockKey []byte) Store {
+	return &secureCookieStore{securecookie.New(hashKey, blockKey)}
 }
 
-func (s *cookieStateStore) GetState(r *http.Request) (string, error) {
+func (s *secureCookieStore) GetState(r *http.Request) (string, error) {
 	return s.getCookie(r, stateCookieKey)
 }
 
-func (s *cookieStateStore) SetState(w http.ResponseWriter, state string) error {
+func (s *secureCookieStore) SetState(w http.ResponseWriter, state string) error {
 	return s.setCookie(w, stateCookieKey, state)
 }
 
-func (s *cookieStateStore) GetRepo(r *http.Request) (string, error) {
+func (s *secureCookieStore) GetRepo(r *http.Request) (string, error) {
 	return s.getCookie(r, repoCookieKey)
 }
 
-func (s *cookieStateStore) SetRepo(w http.ResponseWriter, repo string) error {
+func (s *secureCookieStore) SetRepo(w http.ResponseWriter, repo string) error {
 	return s.setCookie(w, repoCookieKey, repo)
 }
 
-func (s *cookieStateStore) getCookie(r *http.Request, key string) (string, error) {
+func (s *secureCookieStore) getCookie(r *http.Request, key string) (string, error) {
 	var value string
 	cookie, err := r.Cookie(key)
 	if err != nil {
@@ -44,7 +44,7 @@ func (s *cookieStateStore) getCookie(r *http.Request, key string) (string, error
 	return value, s.cutter.Decode(key, cookie.Value, &value)
 }
 
-func (s *cookieStateStore) setCookie(w http.ResponseWriter, key, value string) error {
+func (s *secureCookieStore) setCookie(w http.ResponseWriter, key, value string) error {
 	encoded, err := s.cutter.Encode(key, value)
 	if err != nil {
 		return err
