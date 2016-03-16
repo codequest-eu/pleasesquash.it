@@ -1,4 +1,4 @@
-package main
+package credentials
 
 import (
 	"encoding/json"
@@ -13,7 +13,7 @@ var (
 	errCredentialsNotFound = errors.New("credentials not found")
 )
 
-type boltCredentialsStore struct {
+type boltStore struct {
 	db *bolt.DB
 }
 
@@ -22,7 +22,7 @@ func createBucket(tx *bolt.Tx) error {
 	return err
 }
 
-func newBoltCredentialsStore(path string) (CredentialsStore, error) {
+func NewBoltStore(path string) (Store, error) {
 	db, err := bolt.Open(path, 0666, nil)
 	if err != nil {
 		return nil, err
@@ -30,10 +30,10 @@ func newBoltCredentialsStore(path string) (CredentialsStore, error) {
 	if err := db.Update(createBucket); err != nil {
 		return nil, err
 	}
-	return &boltCredentialsStore{db}, nil
+	return &boltStore{db}, nil
 }
 
-func (s *boltCredentialsStore) Get(repoName string) (*oauth2.Token, error) {
+func (s *boltStore) Get(repoName string) (*oauth2.Token, error) {
 	var data []byte
 	err := s.db.View(func(tx *bolt.Tx) error {
 		if data = tx.Bucket(boltBucketName).Get([]byte(repoName)); data == nil {
@@ -48,7 +48,7 @@ func (s *boltCredentialsStore) Get(repoName string) (*oauth2.Token, error) {
 	return ret, json.Unmarshal(data, ret)
 }
 
-func (s *boltCredentialsStore) Set(repoName string, token *oauth2.Token) error {
+func (s *boltStore) Set(repoName string, token *oauth2.Token) error {
 	data, err := json.Marshal(token)
 	if err != nil {
 		return err

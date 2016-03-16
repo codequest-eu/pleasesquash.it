@@ -7,6 +7,9 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/gorilla/mux"
+
+	"github.com/codequest-eu/pleasesquash.me/credentials"
+	"github.com/codequest-eu/pleasesquash.me/state"
 )
 
 var (
@@ -50,11 +53,11 @@ func startServer(router *mux.Router) error {
 
 func main() {
 	flag.Parse()
-	stateStore := newSecureCookieStore(
+	stateStore := state.NewSecureCookieStore(
 		[]byte(os.Getenv("COOKIE_HASH_KEY")),
 		[]byte(os.Getenv("COOKIE_BLOCK_KEY")),
 	)
-	credStore, err := newBoltCredentialsStore(os.Getenv("CRED_STORE"))
+	credStore, err := credentials.NewBoltStore(os.Getenv("CRED_STORE"))
 	if err != nil {
 		glog.Fatal(err)
 	}
