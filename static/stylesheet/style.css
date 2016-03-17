@@ -1,0 +1,123 @@
+@font-face {
+  font-family: "RobotoSlab-Bold";
+  src: url('/stylesheet/fonts/RobotoSlab-Bold.ttf');
+}
+
+@font-face {
+  font-family: "RobotoSlab-Light";
+  src: url('/stylesheet/fonts/RobotoSlab-Light.ttf');
+}
+
+@font-face {
+  font-family: "RobotoSlab-Regular";
+  src: url('/stylesheet/fonts/RobotoSlab-Regular.ttf');
+}
+
+body {
+  margin: 10px auto;
+  font-family: 'RobotoSlab-Regular', sans-serif;
+  font-weight: 28px;
+  color: #263238;
+  background-color: #fff;
+ }
+
+.logo {
+  margin-left: 10px;
+}
+
+p {
+  text-indent: 20px; 
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0px 15px;
+}
+
+.header {
+  font-weight: 400;
+  font-size: 40px;
+  font-family: 'RobotoSlab-Regular';
+  margin: 80px auto 0;
+  text-align: center;
+}
+
+.header a {
+  text-decoration: none;
+  color: #263238;
+}
+
+h2 {
+  font-weight: 200;
+  color: #00838f;
+}
+
+.question {
+  font-size: 24px;
+  font-family: 'RobotoSlab-Regular';
+  text-align: center;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: #fbc02d;
+}
+
+input[type=text], button {
+  font-size: 20px;
+  color: #263238;
+  font-family: 'RobotoSlab-Regular', sans-serif;
+  padding: 10px 10px;
+  display: block;
+  max-width: 600px;
+  height: 56px; 
+  border: 2px solid #cfd8dc;
+  border-radius: 100px;
+}
+
+input[type=text] {
+  width: 100%;
+  font-weight: 16px;
+  display: block;
+  padding-left: 20px;
+  margin: 20px auto 0;
+ }
+
+input[type=text]:focus {
+  outline: none;
+  border-color: #fdd835;
+}
+
+button {
+  background: #fdd835;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  width: 70%;
+  color: #263238;
+  font-family: 'RobotoSlab-Bold';
+  border-radius: 100px;
+  margin: 20px auto 0;
+  max-width: 300px;
+  height: 56px; 
+}
+
+.webhook {
+  font-family: monospace;
+  font-size: 28px;
+}
+
+.screenshot {
+  width: 100%;
+}
+
+footer {
+  margin: 100px auto 0 auto;
+  text-align: center;
+}
