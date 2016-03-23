@@ -1,0 +1,6 @@
+server:
+  build: .
+  env_file: .env
+  command: ./cert_setup.sh ./pleasesquash.me --dev_mode --binding :3000 --logtostderr
+  ports:
+    - "3000:3000"

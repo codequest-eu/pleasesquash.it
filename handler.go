@@ -33,7 +33,7 @@ func (h *handler) submit(w http.ResponseWriter, r *http.Request) error {
 	if err := h.state.SetRepo(w, repoName); err != nil {
 		return err
 	}
-	glog.Infof("Hook requestd for %q", repoName)
+	glog.Infof("Hook setup requested for %q", repoName)
 	http.Redirect(w, r, h.oauth.GetURL(state, repoName), http.StatusFound)
 	return nil
 }

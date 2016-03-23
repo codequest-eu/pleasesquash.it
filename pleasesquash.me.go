@@ -43,12 +43,7 @@ func startServer(router *mux.Router) error {
 			),
 		)
 	}()
-	return http.ListenAndServeTLS(
-		*binding,
-		os.Getenv("SSH_CERT"),
-		os.Getenv("SSH_KEY"),
-		router,
-	)
+	return http.ListenAndServeTLS(*binding, "cert.pem", "key.pem", router)
 }
 
 func main() {
@@ -57,7 +52,10 @@ func main() {
 		[]byte(os.Getenv("COOKIE_HASH_KEY")),
 		[]byte(os.Getenv("COOKIE_BLOCK_KEY")),
 	)
-	credStore, err := credentials.NewBoltStore(os.Getenv("CRED_STORE"))
+	credStore, err := credentials.NewGoogleStore(
+		"datastore.key",
+		os.Getenv("DATASTORE_PROJECT_ID"),
+	)
 	if err != nil {
 		glog.Fatal(err)
 	}
@@ -78,6 +76,5 @@ func main() {
 	router.HandleFunc("/webhook", catchError(h.webhook)).Methods("POST")
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static"))).Methods("GET")
 	glog.Infof("Listening on %s", *binding)
-	// TODO: implement TLS as an option.
 	glog.Fatal(startServer(router))
 }
