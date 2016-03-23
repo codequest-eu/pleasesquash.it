@@ -1,0 +1,38 @@
+@media only screen and (min-width: 620px) {
+	h2 {
+	  margin-top: 80px
+	}
+
+	.adress {
+	  width: 600px;
+	}
+
+    .footer {
+	  margin-top: 100px;
+	}
+
+	.github {
+	  float: right;
+	}
+
+	.icons-container li {
+	  width: 256px;
+	  margin-right: 20px;
+	  display: inline-table;
+	}
+
+	.icons-container li:last-child {
+	  margin-right: 0;
+	}
+
+	.logo {
+	  margin: 18px 0 0 20px;
+	  float: left;
+	}
+
+	.title {
+	  font-size: 56px;
+	  margin-top: 100px;
+	  clear: both;
+	}
+}

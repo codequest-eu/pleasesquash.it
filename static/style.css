@@ -1,68 +1,170 @@
-body {
-  width: 600px;
-  margin: 20px auto;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 200;
+@font-face {
+  font-family: 'Lato-Bold';
+  src: url('fonts/Lato-Bol.ttf');
+  font-family: 'Lato-Regular';
+  src: url('fonts/Lato-Reg.ttf');
+  font-family: 'Lato-Light';
+  src: url('fonts/Lato-Lig.ttf');
+  font-family: 'Monaco';
+  src: url('fonts/Monaco.dfont');
 }
 
-.header {
-  font-weight: 400;
-  font-size: 48px;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
+*:focus {
+    outline: none;
 }
 
-.header a {
-  text-decoration: none;
-  color: black;
+p {
+  font-family: 'Lato-Light';
+  font-size: 18px;
+  color: #263238;
+  text-align: center;
 }
 
 h2 {
+  font-family: 'Lato-Regular';
+  font-size: 26px;
+  color: #78909C;
+  text-align: center;
+  margin-top: 50px;
+}
+
+h3 {
+  font-family: 'Lato-Regular';
+  font-size: 26px;
+  color: #263238;
+  text-align: center;
+  margin-top: 10px;
+}
+
+a {
+  color: #AB47BC;
+}
+
+footer {
+  margin-top: 60px 0 10px 0;
+}
+
+.adress {
+  width: 300px;
+  height: 52px;
+  display: block;
+  margin: 0 auto;
+  font-size: 22px;
+  font-family: 'Lato-Light';
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: 2px solid #CFD8DC;
+  text-align: center;
+}
+
+.adress:focus {
+  border-color: #AB47BC;
+}
+
+.body {
+  max-width: 900px;
+  margin: 20px auto;
   font-weight: 200;
 }
 
+.clearFix {
+  clear: both;
+}
+
+.code {
+  font-family: 'Monaco';
+  font-size: 14px;
+}
+
+.footer {
+  font-size: 16px;
+  margin: 0 36px;
+}
+
+.github {
+  margin: 20px 20px 0px 0px;
+}
+
+.icon-github {
+  vertical-align: middle;
+}
+
+.icon-svg {
+  display: block;
+  margin: 20px auto;
+}
+
+.icons-container {
+  margin: 50px 0 0 0;
+  padding: 0;
+  text-align: center  
+}
+
+.icons-container li {
+  width: 300px;
+  display: inline-block;
+}
+
+.icons-container li:last-child {
+  margin-right: 0;
+}
+
 .logo {
+  display: block;
+  margin: 28px auto;
   height: 24px;
   vertical-align: bottom;
 }
 
-.green {
-  color: green;
+.picture {
+  margin: 50px 0px 50px 0px;
+  height: auto;
 }
 
-.red {
-  color: red;
-}
-
-input[type=text], button {
-  font-size: 24px;
-  font-family: 'Raleway', sans-serif;
-  padding: 4px 8px;
-}
-
-input[type=text] {
-  width: 80%;
-  font-weight: 200;
-}
-
-button {
-  background: white;
-  border: none;
-  cursor: pointer;
-  font-weight: 400;
-  width: 15%;
-  color: green;
-}
-
-p.webhook {
-  font-family: monospace;
-  font-size: 28px;
+.success {
+  font-size: 56px;
+  margin-top: 100px;
+  text-align: center;
+  font-family: 'Lato-Bold';
 }
 
 .screenshot {
   width: 100%;
 }
 
-footer {
-  margin-top: 100px;
+.squash {
+  background: #AB47BC;
+  cursor: pointer;
+  border:none;
+  font-size: 22px;
+  font-family: 'Lato-Regular';
+  width: 300px;
+  color: #fff;
+  height: 52px;
+  display: block;
+  margin: 15px auto;
+  padding: 10px 20px;
+  border-radius: 100px;
+  text-align: center;
 }
+
+.title {
+  font-family: 'Lato-Bold';
+  font-size: 38px;
+  color: #263238;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.visit {
+  text-decoration: none;
+  font-family: 'Lato-Light';
+  font-size: 18px;
+  color: #263238;
+}
+
+.webhook {
+  font-family: monospace;
+  font-size: 28px;
+}
+

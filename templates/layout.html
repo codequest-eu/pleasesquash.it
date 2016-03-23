@@ -3,21 +3,36 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>pleasesquash.me</title>
+    <link rel="stylesheet" href="/normalize.css" />
     <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/style_tablet.css" />
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,200' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <h1 class="header">
-      <a href="/">pleasesquash<img class="logo" src="/squash.png" />me</a>
-    </h1>
+    <div class="header">
+      <img class="logo" src="svg/logo.svg" alt="logo" 
+      style="width:270px;height:34px;">
+      <p class="github">
+        <a class="visit" href="http://github.com/codequest-eu">Visit our GitHub</a>
+        <image class="icon-github" src="svg/github.svg" alt="github" 
+          style="width:32px;height:32px;">
+      </p>
+      <div class="clearFix"></div>
+    </div>
+      <div class="body">
     {{ template "content" }}
     <footer>
-      <p>
+      <p class="footer">
         made with
-        <span class="red">&hearts;</span>
+          <image class="heart" src="svg/heart.svg" alt="love" 
+          style="width:17px;height:15px;">
         by <a href="http://codequest.com">codequest</a>
+        and <image class="like" src="svg/like.svg" alt="like" 
+          style="width:17px;height:16px;">
+        by <a href="http://codebeat.com">codebeat</a>
       </p>
     </footer>
+    </div>
   </body>
 </html>
 {{ end }}
