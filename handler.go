@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/golang/glog"
@@ -72,6 +73,10 @@ func (h *handler) callback(w http.ResponseWriter, r *http.Request) (err error) {
 }
 
 func (h *handler) webhook(w http.ResponseWriter, r *http.Request) (err error) {
+	if r.Header.Get("X-GitHub-Event") != "pull_request" {
+		_, err = fmt.Fprint(w, "Whatever 🐶")
+		return
+	}
 	defer func() {
 		if issue := recover(); issue != nil {
 			err = recoveryError(issue)
