@@ -1,12 +1,6 @@
-@font-face {
-  font-family: 'Lato-Bold';
-  src: url('fonts/Lato-Bol.ttf');
-  font-family: 'Lato-Regular';
-  src: url('fonts/Lato-Reg.ttf');
-  font-family: 'Lato-Light';
-  src: url('fonts/Lato-Lig.ttf');
-  font-family: 'Monaco';
-  src: url('fonts/Monaco.dfont');
+
+body {
+  font-family: 'Lato', sans-serif;
 }
 
 *:focus {
@@ -14,14 +8,16 @@
 }
 
 p {
-  font-family: 'Lato-Light';
+  font-family: 'Lato';
+  font-weight: 300;
   font-size: 18px;
   color: #263238;
   text-align: center;
 }
 
 h2 {
-  font-family: 'Lato-Regular';
+  font-family: 'Lato';
+  font-weight: 700;
   font-size: 26px;
   color: #78909C;
   text-align: center;
@@ -29,7 +25,8 @@ h2 {
 }
 
 h3 {
-  font-family: 'Lato-Regular';
+  font-family: 'Lato';
+  font-weight: 300;
   font-size: 26px;
   color: #263238;
   text-align: center;
@@ -50,7 +47,8 @@ footer {
   display: block;
   margin: 0 auto;
   font-size: 22px;
-  font-family: 'Lato-Light';
+  font-family: 'Lato';
+  font-weight: 300;
   padding: 10px 20px;
   border-radius: 100px;
   border: 2px solid #CFD8DC;
@@ -125,7 +123,7 @@ footer {
   font-size: 56px;
   margin-top: 100px;
   text-align: center;
-  font-family: 'Lato-Bold';
+  font-family: 'Lato';
 }
 
 .screenshot {
@@ -137,7 +135,8 @@ footer {
   cursor: pointer;
   border:none;
   font-size: 22px;
-  font-family: 'Lato-Regular';
+  font-family: 'Lato';
+  font-weight: 700;
   width: 300px;
   color: #fff;
   height: 52px;
@@ -149,7 +148,8 @@ footer {
 }
 
 .title {
-  font-family: 'Lato-Bold';
+  font-family: 'Lato';
+  font-weight: 700;
   font-size: 38px;
   color: #263238;
   text-align: center;
@@ -158,7 +158,8 @@ footer {
 
 .visit {
   text-decoration: none;
-  font-family: 'Lato-Light';
+  font-family: 'Lato';
+  font-weight: 300;
   font-size: 18px;
   color: #263238;
 }
