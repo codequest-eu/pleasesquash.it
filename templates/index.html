@@ -9,7 +9,7 @@
 </p>
 <h2>Want to give it a try?</h2>
 <form action="/submit" method="POST">
-  <input class="adress" type="text" name="repo_name" placeholder="codequest-eu/pleasesquash.me" />
+  <input class="adress" type="text" name="repo_name" placeholder="codequest-eu/pleasesquash.me" required/>
   <button class="squash">Squash it!</button>
 </form>
 <ul class='icons-container'>
@@ -18,9 +18,7 @@
         style="width:150px;height:150px;">
         <h3>Get commits</h3>
         <p> In order to squash your last three commits in one and type following command</p>
-        <p class="code">
-          git rebase -i HEAD~3
-        </p>
+        <p class="code">git rebase -i HEAD~3</p>
         <p>This will open up your editor with the following</p>
       </li>
       <li>
@@ -28,9 +26,9 @@
         style="width:150px;height:150px;">
         <h3>Squash it</h3>
         <p> Change your file to this:</p>
-        <p class="code">
-          pick f392171 Added new feature X squash ba9dd9a Added new elements to page design squash df71a27 Updated CSS for new elements
-        </p>
+        <p class="code">pick f392171 Added new feature</p>
+        <p class="code">squash ba9dd9a Added new elements to page design</p>
+        <p class="code">squash df71a27 Updated CSS for new elements</p>
         <p>When done, save and quit your editor. Git will now squash the commits into one. All done!</p>
       </li>
       <li>
