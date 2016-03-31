@@ -73,6 +73,13 @@ footer {
   font-family: 'Monaco';
   font-size: 14px;
 }
+.description {
+  font-family: 'Lato';
+  font-weight: 300;
+  font-size: 16px;
+  color: #263238;
+  text-align: center;
+}
 
 .footer {
   font-size: 16px;
@@ -93,7 +100,7 @@ footer {
 }
 
 .icons-container {
-  margin: 50px 0 0 0;
+  margin: 100px 0 0 0;
   padding: 0;
   text-align: center  
 }
